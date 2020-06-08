@@ -2,6 +2,7 @@ package com.marcos.procrastinationrepelent;
 
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.format.DateFormat;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +20,7 @@ public class TaskFragment extends Fragment {
     private CheckBox mDoneCheckBox;
     private Task mTask;
     private EditText mTitleField;
+    private final CharSequence DATE_FORMAT = "EEE, dd-MMMM-yyyy";
 
 
      @Override
@@ -46,7 +48,7 @@ public class TaskFragment extends Fragment {
              }
          });
          mDateButton = (Button) v.findViewById(R.id.task_date_button);
-         mDateButton.setText(mTask.getDate().toString());
+         mDateButton.setText(DateFormat.format(DATE_FORMAT, mTask.getDate()).toString());
          mDateButton.setEnabled(false);
          mDoneCheckBox = (CheckBox) v.findViewById(R.id.task_done_checkBox);
          mDoneCheckBox.setOnCheckedChangeListener(new OnCheckedChangeListener(){
