@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Procrastination Repelent</string>
-    <string name="taskTitleHint">Enter the title of the task</string>
+    <string name="task_title_hint">Enter the title of the task</string>
+    <string name="task_title_label">Title</string>
+    <string name="task_details_label">Details</string>
+    <string name="task_done_label">Done?</string>
 </resources>
