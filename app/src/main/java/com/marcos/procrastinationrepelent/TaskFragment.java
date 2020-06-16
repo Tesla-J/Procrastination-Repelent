@@ -22,7 +22,6 @@ public class TaskFragment extends Fragment {
     private EditText mTitleField;
     private final CharSequence DATE_FORMAT = "EEE, dd-MMMM-yyyy";
 
-
      @Override
     public void onCreate(Bundle savedInstanceState){
          super.onCreate(savedInstanceState);
