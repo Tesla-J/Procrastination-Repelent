@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="wrap_content">
+    <CheckBox
+        android:id="@+id/is_done_checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:gravity="center"
+        android:enabled="false"
+        android:focusable="false"
+        android:padding="4dp"
+        />
+    <TextView
+        android:id="@+id/task_title_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:paddingLeft="4dp"
+        android:paddingRight="4dp"
+        android:text="Tituo"
+        />
+    <TextView
+        android:id="@+id/task_date_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/task_title_view"
+        android:padding="4dp"
+        android:paddingBottom="0dp"
+        android:text="data"
+        />
+
+</RelativeLayout>

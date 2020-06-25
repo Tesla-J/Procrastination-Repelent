@@ -20,7 +20,6 @@ public class TaskFragment extends Fragment {
     private CheckBox mDoneCheckBox;
     private Task mTask;
     private EditText mTitleField;
-    private final CharSequence DATE_FORMAT = "EEE, dd-MMMM-yyyy";
 
      @Override
     public void onCreate(Bundle savedInstanceState){
@@ -47,7 +46,7 @@ public class TaskFragment extends Fragment {
              }
          });
          mDateButton = (Button) v.findViewById(R.id.task_date_button);
-         mDateButton.setText(DateFormat.format(DATE_FORMAT, mTask.getDate()).toString());
+         mDateButton.setText(mTask.getFormatedDate());
          mDateButton.setEnabled(false);
          mDoneCheckBox = (CheckBox) v.findViewById(R.id.task_done_checkBox);
          mDoneCheckBox.setOnCheckedChangeListener(new OnCheckedChangeListener(){

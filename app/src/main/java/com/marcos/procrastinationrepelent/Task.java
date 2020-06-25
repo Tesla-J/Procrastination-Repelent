@@ -2,12 +2,14 @@ package com.marcos.procrastinationrepelent;
 
 import java.util.Date;
 import java.util.UUID;
+import android.text.format.DateFormat;
 
 public class Task {
     private UUID mId;
     private String mTitle;
     private Date mDate;
     private boolean mDone;
+    private final CharSequence DATE_FORMAT_STRING = "EEE, dd-MMMM-yyyy";
 
     public Task(){
         mId = UUID.randomUUID();
@@ -31,6 +33,9 @@ public class Task {
     }
     public Date getDate(){
         return mDate;
+    }
+    public String getFormatedDate(){
+        return DateFormat.format(DATE_FORMAT_STRING,mDate).toString();
     }
     public void setDone(boolean done){
         mDone = done;
