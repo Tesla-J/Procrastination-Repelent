@@ -26,7 +26,7 @@ public class TaskFragment extends Fragment {
      @Override
     public void onCreate(Bundle savedInstanceState){
          super.onCreate(savedInstanceState);
-         UUID taskId = (UUID) getActivity().getIntent().getSerializableExtra(EXTRA_TASK_ID);
+         UUID taskId = (UUID) getArguments().getSerializable(EXTRA_TASK_ID);
          mTask = TaskLab.getInstance(getActivity()).getTask(taskId);
      }
 
@@ -61,5 +61,13 @@ public class TaskFragment extends Fragment {
              }
          });
          return v;
+     }
+
+     public static Fragment newInstance(UUID taskId){
+         Bundle args = new Bundle();
+         args.putSerializable(EXTRA_TASK_ID, taskId);
+         TaskFragment fragment = new TaskFragment();
+         fragment.setArguments(args);
+         return fragment;
      }
 }

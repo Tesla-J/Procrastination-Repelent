@@ -35,6 +35,12 @@ public class TaskListFragment extends ListFragment {
         startActivity(i);
     }
 
+    @Override
+    public void onResume(){
+        super.onResume();
+        ((TaskAdapter)getListAdapter()).notifyDataSetChanged();
+    }
+
     private class TaskAdapter extends ArrayAdapter<Task>{
         public TaskAdapter(ArrayList<Task> tasks){
             super(getActivity(), 0, tasks);
