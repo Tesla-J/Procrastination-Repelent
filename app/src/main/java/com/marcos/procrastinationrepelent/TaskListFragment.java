@@ -1,5 +1,6 @@
 package com.marcos.procrastinationrepelent;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import androidx.fragment.app.ListFragment;
@@ -29,7 +30,9 @@ public class TaskListFragment extends ListFragment {
     @Override
     public void onListItemClick(ListView l, View v, int position, long id){
         Task t = ((TaskAdapter) getListAdapter() ).getItem(position);
-        Log.d(TAG, t.getTitle() + " was clicked.");
+        Intent i = new Intent(getActivity(), ProcrastinationActivity.class);
+        i.putExtra(TaskFragment.EXTRA_TASK_ID, t.getId());
+        startActivity(i);
     }
 
     private class TaskAdapter extends ArrayAdapter<Task>{
