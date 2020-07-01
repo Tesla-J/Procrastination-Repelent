@@ -30,7 +30,7 @@ public class TaskListFragment extends ListFragment {
     @Override
     public void onListItemClick(ListView l, View v, int position, long id){
         Task t = ((TaskAdapter) getListAdapter() ).getItem(position);
-        Intent i = new Intent(getActivity(), ProcrastinationActivity.class);
+        Intent i = new Intent(getActivity(), TaskPagerActivity.class);
         i.putExtra(TaskFragment.EXTRA_TASK_ID, t.getId());
         startActivity(i);
     }
