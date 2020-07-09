@@ -1,5 +1,7 @@
 package com.marcos.procrastinationrepelent;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.format.DateFormat;
@@ -12,6 +14,9 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
+import androidx.fragment.app.FragmentManager;
+
+import java.util.Date;
 import java.util.UUID;
 
 import androidx.fragment.app.Fragment;
@@ -22,6 +27,8 @@ public class TaskFragment extends Fragment {
     private Task mTask;
     private EditText mTitleField;
     public static final String EXTRA_TASK_ID = "com.marcos.ProcrastinationRepelent.TaskId";
+    private static final String DIALOG_DATE = "01-January-2012";
+    private static final int REQUEST_DATE_CODE = 0;
 
      @Override
     public void onCreate(Bundle savedInstanceState){
@@ -50,8 +57,16 @@ public class TaskFragment extends Fragment {
              }
          });
          mDateButton = (Button) v.findViewById(R.id.task_date_button);
-         mDateButton.setText(mTask.getFormatedDate());
-         mDateButton.setEnabled(false);
+         updateDate();
+         mDateButton.setOnClickListener(new View.OnClickListener(){
+             @Override
+             public void onClick(View v){
+                 FragmentManager fm = getActivity().getSupportFragmentManager();
+                 DatePickerFragment dialog = DatePickerFragment.newInstance(mTask.getDate());
+                 dialog.setTargetFragment(TaskFragment.this, REQUEST_DATE_CODE);
+                 dialog.show(fm, DIALOG_DATE);
+             }
+         });
          mDoneCheckBox = (CheckBox) v.findViewById(R.id.task_done_checkBox);
          mDoneCheckBox.setChecked(mTask.isDone());
          mDoneCheckBox.setOnCheckedChangeListener(new OnCheckedChangeListener(){
@@ -61,6 +76,20 @@ public class TaskFragment extends Fragment {
              }
          });
          return v;
+     }
+
+     @Override
+     public void onActivityResult(int requestCode, int resultCode, Intent data){
+         if(resultCode != Activity.RESULT_OK) return;
+         if(requestCode == REQUEST_DATE_CODE){
+             Date date = (Date) data.getSerializableExtra(DatePickerFragment.EXTRA_DATE);
+             mTask.setDate(date);
+             updateDate();
+         }
+     }
+
+     private void updateDate(){
+         mDateButton.setText(mTask.getFormatedDate());
      }
 
      public static Fragment newInstance(UUID taskId){
