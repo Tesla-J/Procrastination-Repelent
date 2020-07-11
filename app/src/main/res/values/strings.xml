@@ -6,4 +6,5 @@
     <string name="task_done_label">Done?</string>
     <string name="task_list_title">To do list</string>
     <string name="date_picker_title">Date for the task</string>
+    <string name="time_picker_title">Time for the task</string>
 </resources>

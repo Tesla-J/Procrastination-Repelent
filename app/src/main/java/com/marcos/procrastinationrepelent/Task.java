@@ -10,6 +10,7 @@ public class Task {
     private Date mDate;
     private boolean mDone;
     private final CharSequence DATE_FORMAT_STRING = "EEE, dd-MMMM-yyyy";
+    private final CharSequence TIME_FORMAT_STRING = "H:mm";
 
     public Task(){
         mId = UUID.randomUUID();
@@ -36,6 +37,9 @@ public class Task {
     }
     public String getFormatedDate(){
         return DateFormat.format(DATE_FORMAT_STRING,mDate).toString();
+    }
+    public String getFormatedTime(){
+        return DateFormat.format(TIME_FORMAT_STRING, mDate).toString();
     }
     public void setDone(boolean done){
         mDone = done;
