@@ -14,7 +14,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 public class DatePickerFragment extends DialogFragment {
-    public static String EXTRA_DATE = "com.marcos.procrastinationrepelent.date";
+    public static String EXTRA_DATE = "com.marcos.procrastinationrepelent.datetime";
     private Date mDate;
 
     public static DatePickerFragment newInstance(Date date){

@@ -33,7 +33,7 @@ public class TimePickerFragment extends DialogFragment {
         timePicker.setOnTimeChangedListener( new TimePicker.OnTimeChangedListener(){
             @Override
             public void onTimeChanged(TimePicker v, int hourOfDay, int minute){
-                mTime.setTime( hourToMilliseconds(hourOfDay) + minuteToMilliseconds(minute));
+                mTime.setTime( mTime.getTime() + hourToMilliseconds(hourOfDay) + minuteToMilliseconds(minute));
                 getArguments().putSerializable(EXTRA_TIME, mTime);
             }
         });
@@ -43,7 +43,7 @@ public class TimePickerFragment extends DialogFragment {
                 .setTitle(R.string.time_picker_title)
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener(){
                    @Override
-                   public void onClick(DialogInterface dialog, int wich){
+                   public void onClick(DialogInterface dialog, int which){
                        sendResult(Activity.RESULT_OK);
                    }
         })

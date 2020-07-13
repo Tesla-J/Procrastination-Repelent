@@ -41,6 +41,9 @@ public class Task {
     public String getFormatedTime(){
         return DateFormat.format(TIME_FORMAT_STRING, mDate).toString();
     }
+    public String getFormatedDateAndTime(){
+        return DateFormat.format(DATE_FORMAT_STRING.toString() + " " + TIME_FORMAT_STRING.toString(), mDate).toString();
+    }
     public void setDone(boolean done){
         mDone = done;
     }

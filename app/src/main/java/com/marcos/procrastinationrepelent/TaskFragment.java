@@ -22,16 +22,13 @@ import java.util.UUID;
 import androidx.fragment.app.Fragment;
 
 public class TaskFragment extends Fragment {
-    private Button mDateButton;
-    private Button mTimeButton;
+    private Button mDateAndTimeButton;
     private CheckBox mDoneCheckBox;
     private Task mTask;
     private EditText mTitleField;
     public static final String EXTRA_TASK_ID = "com.marcos.ProcrastinationRepelent.TaskId";
-    private static final String DIALOG_DATE = "Task date";
-    private static final String DIALOG_TIME = "Task time";
-    private static final int REQUEST_DATE_CODE = 0;
-    private static final int REQUEST_TIME_CODE = 1;
+    private static final String DIALOG_DATE_AND_TIME = "Task date";
+    private static final int REQUEST_DATE_AND_TIME_CODE = 0;
 
      @Override
     public void onCreate(Bundle savedInstanceState){
@@ -59,26 +56,15 @@ public class TaskFragment extends Fragment {
                  //intentionally left blank
              }
          });
-         mDateButton = (Button) v.findViewById(R.id.task_date_button);
-         updateDate();
-         mDateButton.setOnClickListener(new View.OnClickListener(){
+         mDateAndTimeButton = (Button) v.findViewById(R.id.task_date_time_button);
+         updateDateAndTime();
+         mDateAndTimeButton.setOnClickListener(new View.OnClickListener(){
              @Override
              public void onClick(View v){
                  FragmentManager fm = getActivity().getSupportFragmentManager();
-                 DatePickerFragment dialog = DatePickerFragment.newInstance(mTask.getDate());
-                 dialog.setTargetFragment(TaskFragment.this, REQUEST_DATE_CODE);
-                 dialog.show(fm, DIALOG_DATE);
-             }
-         });
-         mTimeButton = (Button) v.findViewById(R.id.task_time_button);
-         updateTime();
-         mTimeButton.setOnClickListener(new View.OnClickListener(){
-             @Override
-             public void onClick(View v){
-                 FragmentManager fm = getActivity().getSupportFragmentManager();
-                 TimePickerFragment dialog = TimePickerFragment.newInstance(mTask.getDate());
-                 dialog.setTargetFragment(TaskFragment.this, REQUEST_TIME_CODE);
-                 dialog.show(fm, DIALOG_TIME);
+                 OptionPickerFragment dialog = OptionPickerFragment.newInstance(mTask.getDate());
+                 dialog.setTargetFragment(TaskFragment.this, REQUEST_DATE_AND_TIME_CODE);
+                 dialog.show(fm, DIALOG_DATE_AND_TIME);
              }
          });
          mDoneCheckBox = (CheckBox) v.findViewById(R.id.task_done_checkBox);
@@ -95,23 +81,15 @@ public class TaskFragment extends Fragment {
      @Override
      public void onActivityResult(int requestCode, int resultCode, Intent data){
          if(resultCode != Activity.RESULT_OK) return;
-         if(requestCode == REQUEST_DATE_CODE) {
-             Date date = (Date) data.getSerializableExtra(DatePickerFragment.EXTRA_DATE);
+         if(requestCode == REQUEST_DATE_AND_TIME_CODE) {
+             Date date = (Date) data.getSerializableExtra(OptionPickerFragment.EXTRA_DATE_TIME_KEY);
              mTask.setDate(date);
-             updateDate();
-         }
-         else if(requestCode == REQUEST_TIME_CODE){
-             Date time = (Date) data.getSerializableExtra(TimePickerFragment.EXTRA_TIME);
-             mTask.setDate(time);
-             updateTime();
+             updateDateAndTime();
          }
      }
 
-     private void updateDate(){
-         mDateButton.setText(mTask.getFormatedDate());
-     }
-     private void updateTime() {
-         mTimeButton.setText(mTask.getFormatedTime());
+     private void updateDateAndTime(){
+         mDateAndTimeButton.setText(mTask.getFormatedDateAndTime());
      }
 
      public static Fragment newInstance(UUID taskId){

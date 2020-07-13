@@ -7,4 +7,7 @@
     <string name="task_list_title">To do list</string>
     <string name="date_picker_title">Date for the task</string>
     <string name="time_picker_title">Time for the task</string>
+    <string name="option_picker_title">What would you like to modify?</string>
+    <string name="option_modify_date">Modify date</string>
+    <string name="option_modify_time">Modify time</string>
 </resources>
