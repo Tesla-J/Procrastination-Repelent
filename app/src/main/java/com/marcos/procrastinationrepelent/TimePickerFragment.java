@@ -11,6 +11,7 @@ import android.widget.TimePicker;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 import androidx.fragment.app.DialogFragment;
 
@@ -21,10 +22,6 @@ public class TimePickerFragment extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState){
         mTime = (Date) getArguments().getSerializable(EXTRA_TIME);
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(mTime);
-        int hour = calendar.get(Calendar.HOUR_OF_DAY);
-        int minute = calendar.get(Calendar.MINUTE);
 
         View v = getActivity().getLayoutInflater().inflate(R.layout.dialog_time, null);
 
@@ -33,7 +30,13 @@ public class TimePickerFragment extends DialogFragment {
         timePicker.setOnTimeChangedListener( new TimePicker.OnTimeChangedListener(){
             @Override
             public void onTimeChanged(TimePicker v, int hourOfDay, int minute){
-                mTime.setTime( mTime.getTime() + hourToMilliseconds(hourOfDay) + minuteToMilliseconds(minute));
+                GregorianCalendar calendar = new GregorianCalendar();
+                //calendar.setTime(mTime);
+                int day = calendar.get(GregorianCalendar.DAY_OF_MONTH);
+                int month = calendar.get(calendar.MONTH);
+                int year = calendar.get(calendar.YEAR);
+                calendar.set(year, month, day, hourOfDay, minute);
+                mTime=calendar.getTime();
                 getArguments().putSerializable(EXTRA_TIME, mTime);
             }
         });
@@ -64,12 +67,5 @@ public class TimePickerFragment extends DialogFragment {
             i.putExtra(EXTRA_TIME, mTime);
             getTargetFragment().onActivityResult(getTargetRequestCode(), resultCode, i);
         }
-    }
-
-    private long hourToMilliseconds(int hour){
-        return hour*3600*1000;
-    }
-    private long minuteToMilliseconds(int minute){
-        return minute*60000;
     }
 }

@@ -56,14 +56,15 @@ public class OptionPickerFragment extends DialogFragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data){
-        if(resultCode == REQUEST_DATE_TIME_CODE){
+        if(requestCode == REQUEST_DATE_TIME_CODE){
             /* It will get the date from timepicker or datepicker
-                I know that I could modify de code to optimize it, but I'm too lazy to do this.
             */
             try{
                 mDate = (Date) data.getSerializableExtra(DatePickerFragment.EXTRA_DATE);
+                System.out.println(mDate.toString());
             }catch (NullPointerException e){
                 mDate = (Date) data.getSerializableExtra(TimePickerFragment.EXTRA_TIME);
+                System.out.println(mDate.toString());
             }finally{
                 getArguments().putSerializable(EXTRA_DATE_TIME_KEY, mDate);
             }

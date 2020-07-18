@@ -48,8 +48,11 @@ public class DatePickerFragment extends DialogFragment {
         datePicker.init(year, month, day, new DatePicker.OnDateChangedListener(){
            @Override
            public void onDateChanged(DatePicker view, int year, int month, int day){
+               Calendar calendar = Calendar.getInstance();
+               int hour = calendar.get(Calendar.HOUR);
+               int minute = calendar.get(Calendar.MINUTE);
                //Translate year, month, day into a Date object using a calendar
-               mDate = new GregorianCalendar(year, month, day).getTime();
+               mDate = new GregorianCalendar(year, month, day, hour, minute).getTime();
                //update arguments to preserve selected value on rotation
                getArguments().putSerializable(EXTRA_DATE, mDate);
            }
