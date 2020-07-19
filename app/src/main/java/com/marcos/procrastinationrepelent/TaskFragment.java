@@ -62,7 +62,8 @@ public class TaskFragment extends Fragment {
              @Override
              public void onClick(View v){
                  FragmentManager fm = getActivity().getSupportFragmentManager();
-                 OptionPickerFragment dialog = OptionPickerFragment.newInstance(mTask.getDate());
+                 //OptionPickerFragment dialog = OptionPickerFragment.newInstance(mTask.getDate());
+                 DateAndTimePickerFragment dialog = DateAndTimePickerFragment.newInstance(mTask.getDate());
                  dialog.setTargetFragment(TaskFragment.this, REQUEST_DATE_AND_TIME_CODE);
                  dialog.show(fm, DIALOG_DATE_AND_TIME);
              }
@@ -82,7 +83,7 @@ public class TaskFragment extends Fragment {
      public void onActivityResult(int requestCode, int resultCode, Intent data){
          if(resultCode != Activity.RESULT_OK) return;
          if(requestCode == REQUEST_DATE_AND_TIME_CODE) {
-             Date date = (Date) data.getSerializableExtra(OptionPickerFragment.EXTRA_DATE_TIME_KEY);
+             Date date = (Date) data.getSerializableExtra(DateAndTimePickerFragment.DATE_AND_TIME_EXTRA);
              mTask.setDate(date);
              updateDateAndTime();
          }
