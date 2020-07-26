@@ -11,4 +11,9 @@
     <string name="option_modify_date">Modify date</string>
     <string name="option_modify_time">Modify time</string>
     <string name="date_and_time_dialog_title">Modify Date and Time</string>
+    <string name="new_task">New task</string>
+    <string name="show_subtitle">Show subtitle</string>
+    <string name="hide_subtitle">Hide subtitle</string>
+    <string name="subtitle">If you want to do something, just do it!</string>
+    <string name="delete">Delete</string>
 </resources>

@@ -4,6 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import androidx.fragment.app.ListFragment;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import java.util.ArrayList;
@@ -20,7 +23,7 @@ public class TaskListFragment extends ListFragment {
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        Toast.makeText(this.getContext(), "Hmmm", Toast.LENGTH_LONG);
+        setHasOptionsMenu(true);
         getActivity().setTitle(R.string.task_list_title);
         mTasks = TaskLab.getInstance( getActivity() ).getTasks();
         TaskAdapter adapter = new TaskAdapter(mTasks);
@@ -35,10 +38,33 @@ public class TaskListFragment extends ListFragment {
         startActivity(i);
     }
 
+    //Update the list if changed
     @Override
     public void onResume(){
         super.onResume();
         ((TaskAdapter)getListAdapter()).notifyDataSetChanged();
+    }
+
+    //Menu
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater){
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.fragment_task_list, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch(item.getItemId()){
+            case R.id.menu_item_new_task:
+                Task task = new Task();
+                TaskLab.getInstance(getActivity()).addTask(task);
+                Intent i = new Intent(getActivity(), TaskPagerActivity.class);
+                i.putExtra(TaskFragment.EXTRA_TASK_ID, task.getId());
+                startActivityForResult(i, 0);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     private class TaskAdapter extends ArrayAdapter<Task>{

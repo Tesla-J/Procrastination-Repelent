@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <!-- icon from android:icon="@android:drawable/ic_menu_add" -->
+    <item
+        android:id="@+id/menu_item_new_task"
+        android:title="@string/new_task"
+        android:icon="@mipmap/ic_menu_add"
+        android:showAsAction="ifRoom|withText"
+        />
+</menu>

@@ -12,20 +12,20 @@ public class TaskLab {
     private TaskLab(Context appContext){
         mAppContext = appContext;
         mTasks = new ArrayList<Task>();
-        //temporary task generator
-        for(int i=0; i<100; i++){
-            Task c = new Task();
-            c.setTitle("Task #"+i);
-            c.setDone(i%2 == 0);
-            mTasks.add(c);
-        }
     }
+
+    //Singleton
     public static TaskLab getInstance(Context context){
         if(sTaskLabInstance == null){
             sTaskLabInstance = new TaskLab(context.getApplicationContext());
         }
         return sTaskLabInstance;
     }
+
+    public void addTask(Task t){
+        mTasks.add(t);
+    }
+
     public Task getTask(UUID id){
         for(Task t : mTasks){
             if( id.equals( t.getId() ) ){
