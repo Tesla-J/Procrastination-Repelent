@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import androidx.fragment.app.ListFragment;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -19,6 +20,7 @@ import android.widget.Toast;
 public class TaskListFragment extends ListFragment {
     private ArrayList<Task> mTasks;
     private static final String TAG = "TaskListFragment";
+    private boolean mIsSubtitleVisible;
 
     @Override
     public void onCreate(Bundle savedInstanceState){
@@ -28,6 +30,17 @@ public class TaskListFragment extends ListFragment {
         mTasks = TaskLab.getInstance( getActivity() ).getTasks();
         TaskAdapter adapter = new TaskAdapter(mTasks);
         setListAdapter(adapter);
+        setRetainInstance(true);
+        mIsSubtitleVisible = false;
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState){
+        View v = super.onCreateView(inflater, parent, savedInstanceState);
+        if(mIsSubtitleVisible){
+            getActivity().getActionBar().setSubtitle(R.string.subtitle);
+        }
+        return v;
     }
 
     @Override
@@ -50,6 +63,10 @@ public class TaskListFragment extends ListFragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater){
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.fragment_task_list, menu);
+        MenuItem subtitle = menu.findItem(R.id.menu_item_show_subtitle);
+        if(mIsSubtitleVisible && (subtitle != null)){
+            subtitle.setTitle(R.string.hide_subtitle);
+        }
     }
 
     @Override
@@ -66,9 +83,11 @@ public class TaskListFragment extends ListFragment {
                 if(getActivity().getActionBar().getSubtitle() == null){
                     getActivity().getActionBar().setSubtitle(R.string.subtitle);
                     item.setTitle(R.string.hide_subtitle);
+                    mIsSubtitleVisible = true;
                 }else{
                     getActivity().getActionBar().setSubtitle(null);
                     item.setTitle(R.string.show_subtitle);
+                    mIsSubtitleVisible = false;
                 }
                 return true;
             default:
@@ -76,6 +95,7 @@ public class TaskListFragment extends ListFragment {
         }
     }
 
+    //And adapter for the tasks
     private class TaskAdapter extends ArrayAdapter<Task>{
         public TaskAdapter(ArrayList<Task> tasks){
             super(getActivity(), 0, tasks);
