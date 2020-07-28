@@ -16,4 +16,5 @@
     <string name="hide_subtitle">Hide subtitle</string>
     <string name="subtitle">If you want to do something, just do it!</string>
     <string name="delete">Delete</string>
+    <string name="empty_list">There are no tasks.</string>
 </resources>

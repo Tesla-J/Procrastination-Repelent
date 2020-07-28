@@ -21,6 +21,8 @@ public class TaskListFragment extends ListFragment {
     private ArrayList<Task> mTasks;
     private static final String TAG = "TaskListFragment";
     private boolean mIsSubtitleVisible;
+    private View mEmptyView;
+    private boolean mIsEmptyViewVisible = true;
 
     @Override
     public void onCreate(Bundle savedInstanceState){
@@ -31,7 +33,7 @@ public class TaskListFragment extends ListFragment {
         TaskAdapter adapter = new TaskAdapter(mTasks);
         setListAdapter(adapter);
         setRetainInstance(true);
-        mIsSubtitleVisible = false;
+        mIsSubtitleVisible = true;
     }
 
     @Override
@@ -41,6 +43,17 @@ public class TaskListFragment extends ListFragment {
             getActivity().getActionBar().setSubtitle(R.string.subtitle);
         }
         return v;
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState){
+        super.onActivityCreated(savedInstanceState);
+        //settting the empty view
+        //it will be removed after the first task is created
+        if(getListAdapter().getCount() == 0){
+            mEmptyView = getActivity().getLayoutInflater().inflate(R.layout.list_empty_view, null);
+            ((ViewGroup) getListView().getParent()).addView(mEmptyView);
+        }
     }
 
     @Override
