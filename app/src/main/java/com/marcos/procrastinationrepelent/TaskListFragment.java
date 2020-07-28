@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import java.util.ArrayList;
 import android.util.Log;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -22,7 +23,8 @@ public class TaskListFragment extends ListFragment {
     private static final String TAG = "TaskListFragment";
     private boolean mIsSubtitleVisible;
     private View mEmptyView;
-    private boolean mIsEmptyViewVisible = true;
+    private ViewGroup mListViewParent;
+    private Button mCreateTaskButton;
 
     @Override
     public void onCreate(Bundle savedInstanceState){
@@ -48,11 +50,19 @@ public class TaskListFragment extends ListFragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState){
         super.onActivityCreated(savedInstanceState);
-        //settting the empty view
+        //setting the empty view
         //it will be removed after the first task is created
         if(getListAdapter().getCount() == 0){
             mEmptyView = getActivity().getLayoutInflater().inflate(R.layout.list_empty_view, null);
-            ((ViewGroup) getListView().getParent()).addView(mEmptyView);
+            mListViewParent = (ViewGroup) getListView().getParent();
+            mListViewParent.addView(mEmptyView);
+            mCreateTaskButton = (Button) mListViewParent.findViewById(R.id.create_task_button);
+            mCreateTaskButton.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v){
+                    createTask();
+                }
+            });
         }
     }
 
@@ -86,11 +96,7 @@ public class TaskListFragment extends ListFragment {
     public boolean onOptionsItemSelected(MenuItem item){
         switch(item.getItemId()){
             case R.id.menu_item_new_task:
-                Task task = new Task();
-                TaskLab.getInstance(getActivity()).addTask(task);
-                Intent i = new Intent(getActivity(), TaskPagerActivity.class);
-                i.putExtra(TaskFragment.EXTRA_TASK_ID, task.getId());
-                startActivityForResult(i, 0);
+                createTask();
                 return true;
             case R.id.menu_item_show_subtitle:
                 if(getActivity().getActionBar().getSubtitle() == null){
@@ -107,6 +113,15 @@ public class TaskListFragment extends ListFragment {
                 return super.onOptionsItemSelected(item);
         }
     }
+
+    private void createTask(){
+        Task task = new Task();
+        TaskLab.getInstance(getActivity()).addTask(task);
+        Intent i = new Intent(getActivity(), TaskPagerActivity.class);
+        i.putExtra(TaskFragment.EXTRA_TASK_ID, task.getId());
+        startActivityForResult(i, 0);
+    }
+
 
     //And adapter for the tasks
     private class TaskAdapter extends ArrayAdapter<Task>{

@@ -17,4 +17,5 @@
     <string name="subtitle">If you want to do something, just do it!</string>
     <string name="delete">Delete</string>
     <string name="empty_list">There are no tasks.</string>
+    <string name="create_task_button">Create a new one</string>
 </resources>
