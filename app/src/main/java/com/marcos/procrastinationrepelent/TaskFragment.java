@@ -112,6 +112,12 @@ public class TaskFragment extends Fragment {
          }
     }
 
+    @Override
+    public void onPause(){
+         super.onPause();
+         TaskLab.getInstance(getActivity()).saveTasks();
+    }
+
      private void updateDateAndTime(){
          mDateAndTimeButton.setText(mTask.getFormatedDateAndTime());
      }
